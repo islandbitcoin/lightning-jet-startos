@@ -59,31 +59,41 @@ cd embassy-os/backend/
 Clone the project locally. Note the submodule link to the original project(s). 
 
 ```
-git clone https://github.com/Start9Labs/lightning-jet-wrapper.git
-cd lightning-jet-wrapper
+git clone https://github.com/islandbitcoin/lightning-jet-startos.git
+cd lightning-jet-startos
 git submodule update --init --recursive
-docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-docker buildx create --name multiarch --driver docker-container --use
-docker buildx inspect --bootstrap
 ```
 ## Building
 
-To build the project, run the following commands:
+To build the project, run one of the following commands:
 
+**Universal build** (both ARM64 and AMD64):
 ```
 make
+```
+
+**ARM64/aarch64 only**:
+```
+make arm
+```
+
+**AMD64/x86_64 only**:
+```
+make x86
 ```
 
 ## Installing (on Embassy)
 
 SSH into an Embassy device.
 `scp` the `.s9pk` to any directory from your local machine.
-Run the following command to install the package:
+Run the following commands to install the package:
 
 ```
 embassy-cli auth login
-#Enter your embassy password then run:
+# or: start-cli auth login
+# Enter your embassy password then run:
 embassy-cli package install /path/to/lightning-jet.s9pk
+# or: start-cli package install /path/to/lightning-jet.s9pk
 ```
 ## Verify Install
 
